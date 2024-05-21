@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Keypad : MonoBehaviour
 {
@@ -12,21 +13,19 @@ public class Keypad : MonoBehaviour
     TMP_FontAsset originalFont;
 
     public TextMeshPro textMeshProObject;
-    public GameObject doorParent;
-    public LockedDoors lockedDoors;
+    public GameObject lockedDoors;
 
     private void Start()
     {
         givenPassword = 0;
         currentDigit = 3;
         originalFont = textMeshProObject.font;
+        lockedDoors.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public bool add(int number)
     {
-        //Debug.Log("added " + number);
         givenPassword = givenPassword + number * (int)Mathf.Pow(10, currentDigit);
-        //Debug.Log("given password " + givenPassword);
         StartCoroutine(updateDisplayNumber(0));
         currentDigit--;
         lastNumber = number;
@@ -35,7 +34,7 @@ public class Keypad : MonoBehaviour
             if (correctPassword == givenPassword)
             {
                 StartCoroutine(updateDisplayNumber(1));
-                lockedDoors.unlock();
+                lockedDoors.GetComponent<Rigidbody>().isKinematic = false;
                 return true;
             }
             else

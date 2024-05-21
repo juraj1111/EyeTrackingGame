@@ -18,7 +18,7 @@ public class SafeSensor : GazeInteractable
         }
     }
 
-    protected override void Update()
+    void Update()
     {
         if (isGazed && distance < interactionDistance)
         {

@@ -1,78 +1,46 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class GazeInteractable : MonoBehaviour
 {
-    protected Outline outline; //outline of the gazed object
-    public InputActionReference activateAction; //controller trigger action
+    protected Outline outline; //zv˝raznenie objektu pomocou Quick Outline
+    public InputActionReference activateAction; //Akcia sp˙ötaËa na ovl·daËi
 
-    //private bool isGazeInteractable = true;
-    private bool activated = false;
-    //private bool firstLook = false;
     protected bool isGazed = false;
     protected float distance;
     
-
-    //public bool hasGazeInteraction()
-    //{
-        //return isGazeInteractable;
-    //}
-
     protected virtual void Start()
     {
         outline = GetComponent<Outline>();
-        if (outline == null)
-        {
-            Debug.LogWarning("Outliner component not found!");
-        }
     }
 
-    protected virtual void Update()
-    {
-        if (isGazed)
-        {
-            if(activateAction != null)
-            {
-                if (activateAction.action.triggered)
-                {
-                    gazeActivate();
-                }
-            }
-            outline.enabled = true;
-            outline.OutlineColor = Color.yellow;
-        }
-        else
-        {
-            outline.enabled = false;
-        }
-    }
-
-
+    // Aktualizovanie vzdialenosti
     public void gazeInteract(float distance)
     {
-        //Debug.Log("Looking at gazeInteraction object!");
-        //firstLook = false;
         this.distance = distance;
-        //Debug.Log("distance " + distance);
-
     }
 
+    // Volanie pri prvom pozretÌ na objekt
     public virtual void onFirstLook(float distance)
     {
         this.distance = distance;
-        //Debug.Log("distance " + distance);
         isGazed = true;
-        //firstLook = true;
     }
 
+    // VolanÈ keÔ sa prestane pozeraù na objekt
     public virtual void gazeInteractEnd()
     {
         isGazed = false;
     }
 
-    public void gazeActivate()
+
+    public bool getIsGazed()
     {
-        activated = !activated;
+        return isGazed;
+    }
+
+    public float getDistance()
+    {
+        return distance;
     }
 }

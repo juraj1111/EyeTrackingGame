@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TelevisionDigit : GazeInteractable
 {
     public Television television;
     public TextMeshPro textMeshProObject;
     [SerializeField] private int digit;
-    private bool active = true;
     private int number = 0;
-    private bool remoteController = false;
+    
 
     protected override void Start()
     {
@@ -20,9 +15,9 @@ public class TelevisionDigit : GazeInteractable
         textMeshProObject.text = number.ToString();
     }
 
-    protected override void Update()
+    void Update()
     {
-        if (isGazed && television.isActive())
+        if (isGazed && television.isActive() && television.RemoteController)
         {
             if (activateAction != null)
             {
@@ -40,16 +35,13 @@ public class TelevisionDigit : GazeInteractable
         else if (!television.isActive())
         {
             textMeshProObject.color = Color.green;
+            outline.enabled = false;
         }
         else
         {
             outline.enabled = false;
         }
-
     }
 
-    public void holdRemoteController()
-    {
-        remoteController = !remoteController;
-    }
+    
 }

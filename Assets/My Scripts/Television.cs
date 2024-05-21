@@ -10,8 +10,11 @@ public class Television : MonoBehaviour
     private int[] correctPasswordDigits;
     private int[] givenPassword = { 0, 0, 0, 0 };
     private bool active = true;
+    private bool remoteController = false;
 
     public GameObject televisionCabinet;
+
+    public bool RemoteController { get => remoteController; set => remoteController = value; }
 
     void Start()
     {
@@ -20,6 +23,7 @@ public class Television : MonoBehaviour
 
     public void add(int digit)
     {
+        if (remoteController == false) return;
         givenPassword[digit]++;
         if (givenPassword[digit] == 10)
         {
@@ -52,5 +56,11 @@ public class Television : MonoBehaviour
     public bool isActive()
     {
         return active;
+    }
+
+    public void holdRemoteController()
+    {
+
+        remoteController = !remoteController;
     }
 }

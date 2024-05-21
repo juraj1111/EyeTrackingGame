@@ -5,6 +5,7 @@ public class ShelfDrop : GazeInteractable
 {
     private int firstLookCounter = 0;
     private Rigidbody rigidBody;
+    [SerializeField] public int numberOFLooks = 3;
 
     protected override void Start()
     {
@@ -12,14 +13,12 @@ public class ShelfDrop : GazeInteractable
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    protected override void Update()
+    void Update()
     {
-        if (firstLookCounter == 3)
+        if (firstLookCounter == numberOFLooks)
         {
             if (rigidBody != null)
             {
-                //Animator animator = GetComponent<Animator>();
-                //animator.SetTrigger("open");
                 StartCoroutine(dropShelf());
             }
         }
