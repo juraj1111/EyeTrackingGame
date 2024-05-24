@@ -20,7 +20,6 @@ public class RestartButton : GazeInteractable
     {
         if (isGazed)
         {
-            Debug.Log("restart");
             Scene currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         }
@@ -28,10 +27,12 @@ public class RestartButton : GazeInteractable
 
     public override void onFirstLook(float distance)
     {
+        base.onFirstLook(distance);
         GetComponent<Image>().color = Color.yellow;
     }
     public override void gazeInteractEnd()
     {
+        base.gazeInteractEnd();
         GetComponent<Image>().color = Color.white;
     }
 }
