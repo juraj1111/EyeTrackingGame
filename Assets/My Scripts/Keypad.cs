@@ -21,6 +21,7 @@ public class Keypad : MonoBehaviour
         currentDigit = 3;
         originalFont = textMeshProObject.font;
         lockedDoors.GetComponent<Rigidbody>().isKinematic = true;
+        lockedDoors.GetComponent<XRGrabInteractable>().enabled = false;
     }
 
     public bool add(int number)
@@ -35,6 +36,7 @@ public class Keypad : MonoBehaviour
             {
                 StartCoroutine(updateDisplayNumber(1));
                 lockedDoors.GetComponent<Rigidbody>().isKinematic = false;
+                lockedDoors.GetComponent<XRGrabInteractable>().enabled = true;
                 return true;
             }
             else

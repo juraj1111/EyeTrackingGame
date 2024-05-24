@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class FinalDoor : MonoBehaviour
 {
     public LocomotionSystem LocomotionSystem;
+    public TeleportationProvider TeleportationProvider;
     public GameObject canvas;
     private int currentGemAmmount = 0;
     [SerializeField] private int finalGemAmmount = 4;
@@ -24,6 +25,7 @@ public class FinalDoor : MonoBehaviour
             Animator animator = GetComponent<Animator>();
             animator.SetTrigger("open");
             LocomotionSystem.enabled = false;
+            TeleportationProvider.enabled = false;
             canvas.SetActive (true);
         }
     }

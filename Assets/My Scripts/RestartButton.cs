@@ -1,21 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RestartButton : GazeInteractable
 {
-    private void Update()
+    protected override void Start()
     {
-        if(isGazed)
+        base.Start();
+        activateAction.action.performed += OnActivateAction;
+    }
+
+    private void OnDestroy()
+    {
+        activateAction.action.performed -= OnActivateAction;
+    }
+
+    private void OnActivateAction(InputAction.CallbackContext context)
+    {
+        if (isGazed)
         {
-            if (activateAction.action.triggered)
-            {
-                Scene currentScene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(currentScene.name);
-            }
+            Debug.Log("restart");
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
         }
     }
 
